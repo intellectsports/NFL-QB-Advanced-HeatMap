@@ -9,7 +9,7 @@ pbp <- load_pbp(2025)
 
 
 # Enter QB's Heat Map to view
-qb_name <- "M.Jones"
+qb_name <- ""
 
 qb_pass <- pbp %>%
   filter(
