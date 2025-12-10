@@ -5,8 +5,11 @@ library(ggtext)
 
 pbp <- load_pbp(2025)
 
+
+
+
 # Enter QB's Heat Map to view
-qb_name <- "S.Darnold" 
+qb_name <- "M.Jones"
 
 qb_pass <- pbp %>%
   filter(
@@ -85,8 +88,8 @@ ggplot(heat_df, aes(pass_location, depth)) +
   ) +
   
   labs(
-    title = paste("QB Throw Heatmap –", qb_name),
-    subtitle = "Comp pct over exp (big) | EPA/play | Attempts (n)",
+    title = paste("QB Advanced Heatmap 25 -", qb_name),
+    subtitle = "Comp pct over exp (Big) | EPA/play | Attempts (n)",
     x = "Location",
     y = "Depth",
     caption = "Author: Kabir Devgun| Data: nflfastR"
@@ -95,10 +98,20 @@ ggplot(heat_df, aes(pass_location, depth)) +
   theme_minimal(base_size = 14) +
   theme(
     panel.grid = element_blank(),
-    plot.title = element_text(face="bold", size=20),
+    plot.title = element_text(face="bold", size=15),
     axis.title = element_text(face="bold"),
     plot.caption = element_text(size=10, color="gray30", hjust=0.5, margin=margin(t=10))
   )
 
-
-
+#QB Summary Stats
+qb_summary <- pbp %>%
+  filter(!is.na(passer_player_name)) %>%
+  group_by(passer_player_name) %>%
+  summarise(
+    dropbacks = n(),
+    epa_db = mean(qb_epa,na.rm = TRUE),
+    cpoe = mean(cpoe, na.rm = TRUE),
+    success_rate = mean(success,na.rm = TRUE)
+  ) %>%
+  filter(dropbacks >= 200) %>%
+  ungroup()
