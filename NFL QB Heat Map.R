@@ -80,9 +80,9 @@ ggplot(heat_df, aes(pass_location, depth)) +
   ) +
   
   scale_fill_gradient2(
-    low = "#b2182b",
+    low = "#2166ac",
     mid = "white",
-    high = "#2166ac",
+    high = "#b2182b",
     midpoint = 0,
     name = "CPOE"
   ) +
